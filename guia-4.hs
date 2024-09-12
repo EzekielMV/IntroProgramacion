@@ -24,3 +24,7 @@ medioFact :: Integer -> Integer
 medioFact 0 = 1
 medioFact 1 = 1
 medioFact n = n * medioFact (n-2)
+
+-- Ejercicio 6)
+todosDigitosIguales :: Integer -> Bool
+todosDigitosIguales n   | div n 10 == mod n 10 = True
