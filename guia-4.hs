@@ -36,7 +36,7 @@ cantDigitos n   | n < 10 = 1
                 | otherwise = 1 + cantDigitos (div n 10)
 
 iesimoDigito :: Integer -> Integer -> Integer
-iesimoDigito n i | n >= 0 && i >= 1 && i <= cantDigitos (n) = mod (div n (10^(cantDigitos n - i))) 10
+iesimoDigito n i = mod (div n (10^(cantDigitos n - i))) 10
 
 -- Ejercicio 8)
 sumaDigitos :: Integer -> Integer
