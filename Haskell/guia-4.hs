@@ -1,3 +1,4 @@
+import Data.ByteString.Builder (FloatFormat)
 
 
 
@@ -48,12 +49,45 @@ sumaDigitos n   | n < 10 = n
 
 
 -- Ejercicio 10)
+-- a)
 f1 :: Int -> Int
 f1 0 = 1
 f1 n = f1 (n-1) + (2^n)
 
--- Ejercicio 11)
+-- b)
 f2 :: Int -> Int -> Int
 f2 0 q = 1
 f2 1 q = q
 f2 n q = f2 (n-1) q + q^n
+
+-- c)
+f3 :: Int -> Int -> Int
+f3 0 q = 1
+f3 1 q = q
+f3 n q = f2 (2*n) q
+
+-- Ejercicio 11)
+factorial :: Integer -> Integer
+factorial 0 = 1
+factorial n = n * factorial(n-1)
+
+-- a)
+eAprox :: Integer -> Float
+eAprox 0 = 1
+eAprox n = eAprox (n-1) + (1 / facto)
+        where facto = fromIntegral(factorial n)
+
+
+-- Ejercicio 12)
+raizDe2AproxAux :: Int -> Float
+raizDe2AproxAux 1 = 2
+raizDe2AproxAux n = 2 + (1 / raizDe2AproxAux (n-1))
+
+raizDe2Aprox :: Int -> Float
+raizDe2Aprox m = (raizDe2AproxAux m) - 1
+
+-- Ejercicio 13)   -- Consultar
+
+-- Ejercicio 14)
+sumaPotencias :: Integer -> Integer -> Integer -> Integer
+sumaPotencias
