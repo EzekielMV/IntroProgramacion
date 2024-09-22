@@ -1,3 +1,6 @@
+
+
+
 -- Ejercicio 1)
 fibonacci :: Integer -> Integer
 fibonacci 0 = 0
@@ -42,3 +45,15 @@ iesimoDigito n i = mod (div n (10^(cantDigitos n - i))) 10
 sumaDigitos :: Integer -> Integer
 sumaDigitos n   | n < 10 = n 
                 | otherwise = (mod n 10) + sumaDigitos (div n 10)
+
+
+-- Ejercicio 10)
+f1 :: Int -> Int
+f1 0 = 1
+f1 n = f1 (n-1) + (2^n)
+
+-- Ejercicio 11)
+f2 :: Int -> Int -> Int
+f2 0 q = 1
+f2 1 q = q
+f2 n q = f2 (n-1) q + q^n
