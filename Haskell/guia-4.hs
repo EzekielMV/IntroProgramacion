@@ -1,4 +1,5 @@
 import Data.ByteString.Builder (FloatFormat)
+import GHC.Base (RuntimeRep(TupleRep))
 
 
 
@@ -6,7 +7,7 @@ import Data.ByteString.Builder (FloatFormat)
 fibonacci :: Integer -> Integer
 fibonacci 0 = 0
 fibonacci 1 = 1
-fibonacci n = (n-1) + (n-2)
+fibonacci n = fibonacci(n-1) + fibonacci(n-2)
 
 -- Ejercicio 2)
 parteEntera :: Integer -> Integer
@@ -90,4 +91,46 @@ raizDe2Aprox m = (raizDe2AproxAux m) - 1
 
 -- Ejercicio 14)
 sumaPotencias :: Integer -> Integer -> Integer -> Integer
-sumaPotencias
+sumaPotencias _ 0 _ = 0
+sumaPotencias q n m = sumaTerminoExterno q n m + sumaPotencias q (n-1) m
+
+sumaTerminoExterno :: Integer -> Integer -> Integer -> Integer
+sumaTerminoExterno _ _ 0 = 0
+sumaTerminoExterno q n m = q ^ (n+m) + sumaTerminoExterno q n (m-1)
+
+--Ejercicio 15) -- Consultar
+
+--Ejercicio 16)
+--a)
+menorDivisorAux :: Integer -> Integer -> Integer
+menorDivisorAux 1 _ = 1
+menorDivisorAux n i     | mod n i == 0 = i
+                        | otherwise = menorDivisorAux n (i+1)
+
+menorDivisor :: Integer -> Integer
+menorDivisor n = menorDivisorAux n 2
+
+--b)
+esPrimo :: Integer -> Bool
+esPrimo n | menorDivisor n == n = True
+          | otherwise = False
+
+--c)
+sonCoprimos :: Integer -> Integer -> Bool
+sonCoprimos n i | esPrimo n && esPrimo i = True
+                | otherwise = False
+
+--d) -- Consultar
+
+-- Ejercicio 17)
+--esFibonacciAux :: Integer -> Integer -> Bool
+--esFibonacciAux 0 _ = True
+--esFibonacciAux 1 _ = True
+--esFibonacciAux n i | (fibonacci i) == n == True
+--                   | (fibonacci i) /= n == False
+--                   | otherwise = esFibonacciAux n (i+1)
+
+--esFibonacci :: Integer -> Bool
+--esFibonacci m = esFibonacciAux m 0
+
+-- Ejercicio 18)
