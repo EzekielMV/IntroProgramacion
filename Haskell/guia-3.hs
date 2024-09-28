@@ -1,10 +1,10 @@
 import GHC.Core.Map.Expr (TrieMap)
 
 -- Ejercicio 1
---a
+--a 
 f :: Integer -> Integer
 f 1 = 8
-f 4 = 131
+f 4 = 131 
 f 16 = 16
 
 --b
