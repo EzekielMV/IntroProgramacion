@@ -1,6 +1,4 @@
-module SistemaDeStock where
-import Data.ByteString.Builder (FloatFormat)
-import GHC.Builtin.PrimOps (PrimOp(FloatAcosOp))
+module SistemaDeStocks where
 
 -- Funciones auxiliares
 apariciones :: String -> [String] -> Int
@@ -35,11 +33,11 @@ dineroEnStock (stocks) (productos) = sumatoria (sumarAlista stocks productos)
                       sumarAlista [] [] = []
                       sumarAlista ((a,b):ms) ((c,d):ns) = (fromIntegral b*d):sumarAlista ms ns
 
--- Ejercicio 4)
+-- Ejercicio 4)  --- Revisar ---
 ofertaAplicada :: (String, Float) -> (String, Float)
 ofertaAplicada (a,b) = (a,(b * 0.80))
 
 aplicarOferta :: [(String, Int)] -> [(String, Float)] -> [(String,Float)]
 aplicarOferta [] [] = []
-aplicarOferta (stock) ((c,d):ns)| stockDeProducto stock c > 10 = (ofertaAplicada (c,d)): aplicarOferta stock ns
-                                | otherwise = (c,d):aplicarOferta stock ns  
+aplicarOferta (stock) ((c,d):ns)| stockDeProducto stock c >= 11 = (ofertaAplicada (c,d)): aplicarOferta stock ns
+                                | otherwise = (c,d):aplicarOferta stock ns
