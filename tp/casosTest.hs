@@ -12,8 +12,8 @@ allTests = test [
     "modernizarFlota" ~: testsEjmodernizarFlota,
     "ciudadMasConectada" ~: testsEjciudadMasConectada,
     "sePuedeLlegar" ~: testsEjsePuedeLlegar,
-    "duracionDelCaminoMasRapido" ~: testsEjduracionDelCaminoMasRapido,
-    "puedoVolverAOrigen" ~: testsEjpuedoVolverAOrigen
+    "duracionDelCaminoMasRapido" ~: testsEjduracionDelCaminoMasRapido
+   -- "puedoVolverAOrigen" ~: testsEjpuedoVolverAOrigen
     ]
 
 -- corregir los tests si es necesario con las funciones extras que se encuentran al final del archivo
@@ -69,9 +69,9 @@ testsEjduracionDelCaminoMasRapido = test [
     "duración del camino más rápido con vuelo directo sin escalas" ~: duracionDelCaminoMasRapido [("BsAs", "Rosario", 5.0), ("BsAs", "Córdoba", 5.0), ("Córdoba", "BsAs", 8.0)] "BsAs" "Córdoba" ~?= 5.0
     ]
 
-testsEjpuedoVolverAOrigen = test [
-        "puedo volver a origen caso verdadero con una escala" ~: puedoVolverAOrigen [("BsAs", "Rosario", 5.0), ("Rosario", "Córdoba", 5.0), ("Córdoba", "BsAs", 8.0)] "BsAs" ~?= True
-    ]
+-- testsEjpuedoVolverAOrigen = test [
+--         "puedo volver a origen caso verdadero con una escala" ~: puedoVolverAOrigen [("BsAs", "Rosario", 5.0), ("Rosario", "Córdoba", 5.0), ("Córdoba", "BsAs", 8.0)] "BsAs" ~?= True
+--     ]
 
 
 

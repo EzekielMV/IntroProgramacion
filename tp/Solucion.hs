@@ -1,15 +1,9 @@
 module Solucion where
-import GHC.CmmToLlvm.Base (llvmDefLabel)
 
 type Ciudad = String
 type Duracion = Float
 type Vuelo = (Ciudad, Ciudad, Duracion)
 type AgenciaDeViajes = [Vuelo]
-
-vuelos :: AgenciaDeViajes 
-vuelos = [("Bs As", "Rosario", 5.0), ("Rosario", "Bs As", 5.0), ("Rosario", "Tucuman", 4.0), ("La Pampa", "Rio Negro", 2.0)]
-
-
 
 ------EJERCICIO 1
 vueloValido :: Vuelo -> Bool
@@ -51,7 +45,7 @@ eliminarRepetidos (n:m:ns) | n == m = eliminarRepetidos (n:ns)
 
 ciudadesConectadas :: AgenciaDeViajes -> Ciudad -> [Ciudad]
 ciudadesConectadas [] _ = []
-ciudadesConectadas agencia cd = eliminarRepetidos (ciudadesConectadasConRepetidos agencia cd)
+ciudadesConectadas agencia cd = eliminarRepetidos(ciudadesConectadasConRepetidos agencia cd)
 
 
 -- EJERCICIO 3
@@ -89,19 +83,20 @@ ciudadMasConectada agencia = masApariciones (aplanar agencia)
 
 -- EJERCICIO 5
 sePuedeLlegar :: AgenciaDeViajes -> Ciudad -> Ciudad -> Bool
-sePuedeLlegar [] _ _ = False 
-sePuedeLlegar vuelos c c2 = rutaDirecta vuelos c c2
+sePuedeLlegar vuelos origen destino = rutaDirecta vuelos origen destino || rutaConEscala vuelos origen destino vuelos
+
 
 rutaDirecta :: AgenciaDeViajes -> Ciudad -> Ciudad -> Bool
-rutaDirecta [] _ _ = False 
-rutaDirecta ((partida,llegada,_):vs) origen destino | partida == origen && llegada == destino = True
-                                                    | otherwise = rutaDirecta vs origen destino
+rutaDirecta [] _ _ = False
+rutaDirecta ((partida, llegada, _):vs) origen destino 
+    | partida == origen && llegada == destino = True
+    | otherwise = rutaDirecta vs origen destino
 
-rutaConEscala :: AgenciaDeViajes -> Ciudad -> Ciudad -> AgenciaDeViajes
-rutaConEscala [n] _ _ = [n]
-rutaConEscala ((partida, llegada,tmp):vs) origen destino    | partida == origen && rutaDirecta vs llegada destino = (partida,llegada,tmp): rutaConEscala vs llegada destino
-                                                            | otherwise = rutaConEscala ((partida, llegada,tmp):vs) origen destino
-
+rutaConEscala :: AgenciaDeViajes -> Ciudad -> Ciudad -> AgenciaDeViajes -> Bool
+rutaConEscala [] _ _ _ = False
+rutaConEscala ((partida, llegada, _):vs) origen destino vuelos
+    | partida == origen = rutaDirecta vuelos llegada destino || rutaConEscala vs origen destino vuelos
+    | otherwise = rutaConEscala vs origen destino vuelos
 
 -- EJERCICIO 6
 duracionRutaDirecta :: AgenciaDeViajes -> Ciudad -> Ciudad -> Duracion
@@ -128,6 +123,3 @@ duracionDelCaminoMasRapido agencia origen destino
                                       duracionEscala = duracionRutaConEscala agencia origen destino
 
 -- EJERCICIO 7
-puedoVolverAOrigen :: AgenciaDeViajes -> Ciudad ->  Bool
-puedoVolverAOrigen vuelos origen = True -- Borrar y escribir el código correcto
-
